@@ -11,6 +11,11 @@ description: ''
 /project/project1/
 https://www.google.com
 
+*I got my DJI Drone last week!*
+
+![](/img/dji.jpg)
+
+
 *Python*
 ```{python}
 list = [0,2,5,7,8,4]
