@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="author" content="Chao Shi" />
+    <meta name="author" content="ChaoQun Shi" />
     
     <link rel="shortcut icon" type="image/x-icon" href="../../../../../img/favicon.ico">
     <title>My post</title>
@@ -74,6 +74,24 @@
 
 <p>/project/project1/
 <a href="https://www.google.com" class="uri">https://www.google.com</a></p>
+<p><em>Python</em></p>
+<pre class="python"><code>list = [0,2,5,7,8,4]
+count = list[0]
+for i in list:
+  if(count &lt; i):
+    count = i
+print(&quot;Max number is&quot;, count)</code></pre>
+<pre><code>## Max number is 8</code></pre>
+<p><em>R code</em></p>
+<pre class="r"><code>library(reticulate)
+a = c(1,4,5,6,7)
+py$list</code></pre>
+<pre><code>## [1] 0 2 5 7 8 4</code></pre>
+<pre class="r"><code>py$count</code></pre>
+<pre><code>## [1] 8</code></pre>
+<p><em>Python</em></p>
+<pre class="python"><code>r.a</code></pre>
+<pre><code>## [1.0, 4.0, 5.0, 6.0, 7.0]</code></pre>
 
             
         <hr>         <div class="related-posts">
