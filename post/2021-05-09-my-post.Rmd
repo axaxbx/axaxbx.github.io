@@ -8,8 +8,6 @@ tags: []
 description: ''
 ---
 
-https://www.google.com
-
 *I got my DJI Drone last week!*
 
 ![](/post/2021-05-09-my-post_files/dji.jpg)
