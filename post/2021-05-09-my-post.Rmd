@@ -13,7 +13,7 @@ https://www.google.com
 
 *I got my DJI Drone last week!*
 
-![](/img/dji.jpg)
+![](/post/2021-05-09-my-post_files/dji.jpg)
 
 
 *Python*
@@ -29,12 +29,14 @@ print("Max number is", count)
 *R code*
 ```{R}
 library(reticulate)
-a = c(1,4,5,6,7)
 py$list
 py$count
+
+library(dplyr)
+starwars %>% select(mass,height,species) %>% na.omit() -> starwars1
 ```
 
 *Python*
 ```{python}
-r.a
+r.starwars1
 ```

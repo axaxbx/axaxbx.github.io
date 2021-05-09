@@ -13,12 +13,11 @@
       <pubDate>Sun, 09 May 2021 00:00:00 +0000</pubDate>
       
       <guid>/post/2021/05/09/my-post/</guid>
-      <description> /project/project1/ https://www.google.com
+      <description>/project/project1/ https://www.google.com
 I got my DJI Drone last week!
 Python
 list = [0,2,5,7,8,4] count = list[0] for i in list: if(count &amp;lt; i): count = i print(&amp;quot;Max number is&amp;quot;, count) ## Max number is 8 R code
-library(reticulate) a = c(1,4,5,6,7) py$list ## [1] 0 2 5 7 8 4 py$count ## [1] 8 Python
-r.a ## [1.0, 4.0, 5.0, 6.0, 7.0] </description>
+library(reticulate) py$list ## [1] 0 2 5 7 8 4 py$count ## [1] 8 library(dplyr) ## ## Attaching package: &amp;#39;dplyr&amp;#39; ## The following objects are masked from &amp;#39;package:stats&amp;#39;: ## ## filter, lag ## The following objects are masked from &amp;#39;package:base&amp;#39;: ## ## intersect, setdiff, setequal, union starwars %&amp;gt;% select(mass,height,species) %&amp;gt;% na.</description>
     </item>
     
     <item>

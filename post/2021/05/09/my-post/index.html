@@ -75,7 +75,7 @@
 <p>/project/project1/
 <a href="https://www.google.com" class="uri">https://www.google.com</a></p>
 <p><em>I got my DJI Drone last week!</em></p>
-<p><img src="../../../../../img/dji.jpg" /></p>
+<p><img src="../../../../../post/2021-05-09-my-post_files/dji.jpg" /></p>
 <p><em>Python</em></p>
 <pre class="python"><code>list = [0,2,5,7,8,4]
 count = list[0]
@@ -86,14 +86,81 @@ print(&quot;Max number is&quot;, count)</code></pre>
 <pre><code>## Max number is 8</code></pre>
 <p><em>R code</em></p>
 <pre class="r"><code>library(reticulate)
-a = c(1,4,5,6,7)
 py$list</code></pre>
 <pre><code>## [1] 0 2 5 7 8 4</code></pre>
 <pre class="r"><code>py$count</code></pre>
 <pre><code>## [1] 8</code></pre>
+<pre class="r"><code>library(dplyr)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<pre class="r"><code>starwars %&gt;% select(mass,height,species) %&gt;% na.omit() -&gt; starwars1</code></pre>
 <p><em>Python</em></p>
-<pre class="python"><code>r.a</code></pre>
-<pre><code>## [1.0, 4.0, 5.0, 6.0, 7.0]</code></pre>
+<pre class="python"><code>r.starwars1</code></pre>
+<pre><code>##       mass  height         species
+## 0     77.0     172           Human
+## 1     75.0     167           Droid
+## 2     32.0      96           Droid
+## 3    136.0     202           Human
+## 4     49.0     150           Human
+## 5    120.0     178           Human
+## 6     75.0     165           Human
+## 7     32.0      97           Droid
+## 8     84.0     183           Human
+## 9     77.0     182           Human
+## 10    84.0     188           Human
+## 11   112.0     228         Wookiee
+## 12    80.0     180           Human
+## 13    74.0     173          Rodian
+## 14  1358.0     175            Hutt
+## 15    77.0     170           Human
+## 16   110.0     180           Human
+## 17    17.0      66  Yoda&#39;s species
+## 18    75.0     170           Human
+## 19    78.2     183           Human
+## 20   140.0     200           Droid
+## 21   113.0     190      Trandoshan
+## 22    79.0     177           Human
+## 23    79.0     175           Human
+## 24    83.0     180    Mon Calamari
+## 25    20.0      88            Ewok
+## 26    68.0     160       Sullustan
+## 27    89.0     193           Human
+## 28    90.0     191       Neimodian
+## 29    66.0     196          Gungan
+## 30    82.0     224          Gungan
+## 31    40.0     112             Dug
+## 32    80.0     175          Zabrak
+## 33    55.0     178         Twi&#39;lek
+## 34    45.0      94      Vulptereen
+## 35    65.0     163           Toong
+## 36    84.0     188           Human
+## 37    82.0     198          Cerean
+## 38    87.0     196        Nautolan
+## 39    50.0     184      Tholothian
+## 40    80.0     188         Kel Dor
+## 41    85.0     185           Human
+## 42    80.0     183       Geonosian
+## 43    56.2     170        Mirialan
+## 44    50.0     166        Mirialan
+## 45    80.0     193           Human
+## 46    79.0     183           Human
+## 47    55.0     168        Clawdite
+## 48   102.0     198        Besalisk
+## 49    88.0     229        Kaminoan
+## 50    15.0      79          Aleena
+## 51    48.0     193         Skakoan
+## 52    57.0     178         Togruta
+## 53   159.0     216         Kaleesh
+## 54   136.0     234         Wookiee
+## 55    79.0     188           Human
+## 56    80.0     206          Pau&#39;an
+## 57    45.0     165           Human</code></pre>
 
             
         <hr>         <div class="related-posts">
