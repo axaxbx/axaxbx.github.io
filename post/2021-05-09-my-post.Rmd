@@ -8,7 +8,6 @@ tags: []
 description: ''
 ---
 
-/project/project1/
 https://www.google.com
 
 *I got my DJI Drone last week!*
