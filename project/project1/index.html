@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Chao Shi" />
+    
+    <link rel="shortcut icon" type="image/x-icon" href="../../img/favicon.ico">
+    <title>Project 1: Exploratory Data Analysis</title>
+    <meta name="generator" content="Hugo 0.83.1" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../../css/main.css" />
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400,200bold,400old" />
+    
+    <!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+
+    
+  </head>
+
+  <body>
+    <div id="wrap">
+      
+      <nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="../../"><i class="fa fa-home"></i></a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div class="navbar-collapse collapse" id="navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+        <li><a href="../../post/">BLOG</a></li>
+        
+        <li><a href="../../projects/">PROJECTS</a></li>
+        
+        <li><a href="../../resume/">RESUME</a></li>
+        
+      
+      </ul>
+    </div>
+  </div>
+</nav>
+
+      <div class="container">
+        <div class="blog-post">
+          <h3>
+            <strong><a href="../../project/project1/">Project 1: Exploratory Data Analysis</a></strong>
+          </h3>
+        </div>
+ 
+<div class="blog-title">
+          <h4>
+         January 1, 0001 
+            &nbsp;&nbsp;
+            
+          </h4>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="blogpost">
+              
+<script src="../../rmarkdown-libs/htmlwidgets/htmlwidgets.js"></script>
+<script src="../../rmarkdown-libs/plotly-binding/plotly.js"></script>
+<script src="../../rmarkdown-libs/typedarray/typedarray.min.js"></script>
+<script src="../../rmarkdown-libs/jquery/jquery.min.js"></script>
+<link href="../../rmarkdown-libs/crosstalk/css/crosstalk.css" rel="stylesheet" />
+<script src="../../rmarkdown-libs/crosstalk/js/crosstalk.min.js"></script>
+<link href="../../rmarkdown-libs/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="../../rmarkdown-libs/plotly-main/plotly-latest.min.js"></script>
+
+
+<div id="data-wrangling-and-data-exploration" class="section level2">
+<h2>Data Wrangling and Data Exploration</h2>
+<div id="instructions" class="section level3">
+<h3>Instructions</h3>
+<p>A knitted R Markdown document (ideally HTML) and the raw R Markdown file (as .Rmd) should both be submitted to Canvas by 11:59pm on the due date. These two documents will be graded jointly, so they must be consistent (i.e., don’t change the R Markdown file without also updating the knitted document).</p>
+<p>The text of the document should provide a narrative structure around your code/output. All results presented must have corresponding code. Any answers/results/plots etc. given without the corresponding R code that generated the result will not be considered. Furthermore, all code contained in your final project document must work correctly (knit early, knit often)! Please do not include any extraneous code or code which produces error messages. (Code that produces warnings is acceptable, as long as you understand what the warnings mean!)</p>
+</div>
+<div id="find-data" class="section level3">
+<h3>Find data:</h3>
+<p>Find two (!) datasets with one variable in common (e.g., dates, times, states, counties, countries, sports players), both with at least 50 observations (i.e., rows) in each. Please think very carefully about whether it makes sense to combine your datasets! If you find one dataset with 50 patients and it has their age, and you find another dataset with 50 <em>different</em> patients that has their ages, it makes no sense to join them based on age (you would just be pairing up random people of the same age).</p>
+<p>When combined, the resulting/final dataset must have <strong>at least 4 different variables (at least 3 numeric) in addition to the common variable</strong> (i.e., five variables total).</p>
+<p>You can have as many variables as you would like! If you found two datasets that you like but they don’t have enough variables, find a third dataset with the same common variable and join all three.</p>
+</div>
+<div id="guidelines" class="section level3">
+<h3>Guidelines</h3>
+<ol style="list-style-type: decimal">
+<li><p>If the datasets are not tidy, you will need to reshape them so that every observation has its own row and every variable its own column. If the datasets are both already tidy, you will make them untidy with <code>pivot_wider()/spread()</code> and then tidy them again with <code>pivot_longer/gather()</code> to demonstrate your use of the functions. It’s fine to wait until you have your descriptives to use these functions (e.g., you might want to pivot_wider() to rearrange the data to make your descriptive statistics easier to look at); it’s fine long as you use them at least once!</p>
+<ul>
+<li><p>Depending on your datasets, it might be a good idea to do this before joining. For example, if you have a dataset you like with multiple measurements per year, but you want to join by year, you could average over your numeric variables to get means/year, do counts for your categoricals to get a counts/year, etc.</p></li>
+<li><p>If your data sets are already tidy, demonstrate the use of <code>pivot_longer()/gather()</code> and <code>pivot_wider()/spread()</code> on all or part of your data at some point in this document (e.g., after you have generated summary statistics in part 3, make a table of them wide instead of long).</p></li>
+</ul></li>
+<li><p>Join your 2+ separate data sources into a single dataset based on a common ID variable! If you can’t find a good pair datasets to join, you may split one main dataset into two different datasets with a common ID variable in each, and then join them back together based on that common ID, but this is obviously less than ideal.</p>
+<ul>
+<li>You will document the type of join that you do (left/right/inner/full), including a discussion of how many observations were in each dataset, which observations in each dataset were dropped (if any) and why you chose this particular join.</li>
+</ul></li>
+<li><p>Create summary statistics</p>
+<ul>
+<li><p>Use <em>all six</em> core <code>dplyr</code> functions (<code>filter, select, arrange, group_by, mutate, summarize</code>) to manipulate and explore your dataset. For mutate, create a new variable that is a function of at least one other variable, preferably using a dplyr vector function (see dplyr cheatsheet). It’s totally fine to use the <code>_if</code>, <code>_at</code>, <code>_all</code> versions of mutate/summarize instead (indeed, it is encouraged if you have lots of variables)</p></li>
+<li><p>Create summary statistics (<code>mean, sd, var, n, quantile, min, max, n_distinct, cor</code>, etc) for each of your numeric variables both overall and after grouping by one of your categorical variables (either together or one-at-a-time; if you have two categorical variables, try to include at least one statistic based on a grouping of two categorical variables simultaneously). If you do not have any categorical variables, create one using mutate (e.g., with <code>case_when</code> or <code>ifelse</code>) to satisfy the <code>group_by</code> requirements above. Ideally, you will find a way to show these summary statistics in an easy-to-read table (e.g., by reshaping). (You might explore the kable package for making pretty tables!) If you have lots of numeric variables (e.g., 10+), or your categorical variables have too many categories, just pick a few (either numeric variables or categories of a categorical variable) and summarize based on those. It would be a good idea to show a correlation matrix for your numeric variables (you will need it to make one of your plots).</p></li>
+</ul></li>
+<li><p>Make visualizations (three plots)</p>
+<ul>
+<li>Make a correlation heatmap of your numeric variables</li>
+<li>Create at least two additional plots of your choice with ggplot that highlight some of the more interesting features of your data.</li>
+<li>Each plot (besides the heatmap) should have at least three variables mapped to separate aesthetics</li>
+<li>Each should use different geoms (e.g., don’t do two geom_bars)</li>
+<li>At least one plot should include <code>stat="summary"</code></li>
+<li>Each plot should include a supporting paragraph describing the relationships that are being visualized and any trends that are apparent
+<ul>
+<li>It is fine to include more, but limit yourself to 4. Plots should avoid being redundant! Four bad plots will get a lower grade than two good plots, all else being equal.</li>
+</ul></li>
+<li>Make them pretty! Use correct labels, etc.</li>
+</ul></li>
+<li><p>Perform k-means/PAM clustering or PCA on (at least) your numeric variables.</p>
+<ul>
+<li><p>Include all steps as we discuss in class, including a visualization.</p></li>
+<li><p>If you don’t have at least 3 numeric variables, or you want to cluster based on categorical variables too, convert them to factors in R, generate Gower’s dissimilarity matrix on the data, and do PAM clustering on the dissimilarities.</p></li>
+<li><p>Show how you chose the final number of clusters/principal components</p></li>
+<li><p>Interpret the final clusters/principal components</p></li>
+<li><p>For every step, document what your code does (in words) and what you see in the data!</p></li>
+</ul></li>
+</ol>
+<P style="page-break-before: always">
+<div style="page-break-after: always;"></div>
+</div>
+<div id="rubric" class="section level3">
+<h3>Rubric</h3>
+<p>Prerequisite: Finding appropriate data from at least two sources per the instructions above: Failure to do this will result in a 0! You will submit a .Rmd file and a knitted document (html/pdf).</p>
+<pre class="r"><code>library(tidyverse)
+library(gapminder)
+COVID19_CASES &lt;- read_csv(&quot;COVID19_CASES.csv&quot;)
+COVID19_CASES &lt;- COVID19_CASES %&gt;% pivot_wider(names_from = &quot;WHO_region&quot;, 
+    values_from = &quot;Country&quot;) %&gt;% rename(REGION_EMRO = EMRO, REGION_EURO = EURO, 
+    REGION_AFRO = AFRO, REGION_WPRO = WPRO, REGION_AMRO = AMRO, 
+    REGION_SEARO = SEARO, REGION_Other = Other)
+
+COVID19_Vaccinations &lt;- read_csv(&quot;COVID19_Vaccinations.csv&quot;)
+CODE_MAPPING &lt;- read_csv(&quot;Country_code_mapping.csv&quot;)
+POPULATION &lt;- read_csv(&quot;countries_by_population_2019.csv&quot;)</code></pre>
+<div id="introduction-4-pts" class="section level4">
+<h4>0. Introduction (4 pts)</h4>
+<ul>
+<li>Write a narrative introductory paragraph or two describing the datasets you have chosen, the variables they contain, how they were acquired, and why they are interesting to you. Expand on potential associations you may expect, if any.</li>
+</ul>
+<pre class="r"><code>colnames(COVID19_CASES)</code></pre>
+<pre><code>##  [1] &quot;Date_reported&quot;     &quot;Country_code&quot;      &quot;New_cases&quot;        
+##  [4] &quot;Cumulative_cases&quot;  &quot;New_deaths&quot;        &quot;Cumulative_deaths&quot;
+##  [7] &quot;REGION_EMRO&quot;       &quot;REGION_EURO&quot;       &quot;REGION_AFRO&quot;      
+## [10] &quot;REGION_WPRO&quot;       &quot;REGION_AMRO&quot;       &quot;REGION_SEARO&quot;     
+## [13] &quot;REGION_Other&quot;</code></pre>
+<pre class="r"><code>colnames(COVID19_Vaccinations)</code></pre>
+<pre><code>##  [1] &quot;location&quot;                            &quot;iso_code&quot;                           
+##  [3] &quot;date&quot;                                &quot;total_vaccinations&quot;                 
+##  [5] &quot;people_vaccinated&quot;                   &quot;people_fully_vaccinated&quot;            
+##  [7] &quot;daily_vaccinations_raw&quot;              &quot;daily_vaccinations&quot;                 
+##  [9] &quot;total_vaccinations_per_hundred&quot;      &quot;people_vaccinated_per_hundred&quot;      
+## [11] &quot;people_fully_vaccinated_per_hundred&quot; &quot;daily_vaccinations_per_million&quot;</code></pre>
+<pre class="r"><code>colnames(CODE_MAPPING)</code></pre>
+<pre><code>## [1] &quot;County&quot;        &quot;2_COUNTY_CODE&quot; &quot;3_COUNTY_CODE&quot; &quot;X4&quot;</code></pre>
+<pre class="r"><code>colnames(POPULATION)</code></pre>
+<pre><code>## [1] &quot;Rank&quot;       &quot;name&quot;       &quot;pop2019&quot;    &quot;pop2018&quot;    &quot;GrowthRate&quot;
+## [6] &quot;area&quot;       &quot;Density&quot;    &quot;iso2&quot;       &quot;iso3&quot;</code></pre>
+<p><em>2020 is a very unusual year. Due to the COVID-19 pandemic, all countries have collectively experienced a difficult period in human history. Therefore, these THREE datasets contain COVID-19 cases around the world, their Vaccinations status and each country’s population. In order to join COVID19_CASES and COVID19_Vaccinations, CODE_MAPPING dataset is used for mapping between iso-country-code-2 and iso-country-code-3. All data come from <a href="https://www.kaggle.com/" class="uri">https://www.kaggle.com/</a></em></p>
+</div>
+<div id="tidying-rearranging-widelong-8-pts" class="section level4">
+<h4>1. Tidying: Rearranging Wide/Long (8 pts)</h4>
+<ul>
+<li>Tidy the datasets (using the <code>tidyr</code> functions <code>pivot_longer</code>/<code>gather</code> and/or <code>pivot_wider</code>/<code>spread</code>)</li>
+<li>If you data sets are already tidy, be sure to use those functions somewhere else in your project (e.g., for rearranging summary statistics)</li>
+<li>Document the process (describe in words what was done)</li>
+</ul>
+<pre class="r"><code>COVID19_CASES %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 104,987
+## Columns: 13
+## $ Date_reported     &lt;chr&gt; &quot;2020/1/3&quot;, &quot;2020/1/4&quot;, &quot;2020/1/5&quot;, &quot;2020/1/6&quot;, &quot;20…
+## $ Country_code      &lt;chr&gt; &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF…
+## $ New_cases         &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ Cumulative_cases  &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ New_deaths        &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ Cumulative_deaths &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, …
+## $ REGION_EMRO       &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afgha…
+## $ REGION_EURO       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ REGION_AFRO       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ REGION_WPRO       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ REGION_AMRO       &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ REGION_SEARO      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ REGION_Other      &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…</code></pre>
+<pre class="r"><code>Tidy_COVID19_CASES &lt;- COVID19_CASES %&gt;% pivot_longer(7:13, names_to = &quot;Region&quot;, 
+    values_to = &quot;Country&quot;) %&gt;% na.omit() %&gt;% separate(Region, 
+    into = c(&quot;name&quot;, &quot;Region&quot;), sep = &quot;_&quot;, convert = T) %&gt;% select(-name, 
+    -Cumulative_deaths, -Cumulative_cases)
+
+Tidy_COVID19_CASES %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 104,130
+## Columns: 6
+## $ Date_reported &lt;chr&gt; &quot;2020/1/3&quot;, &quot;2020/1/4&quot;, &quot;2020/1/5&quot;, &quot;2020/1/6&quot;, &quot;2020/1…
+## $ Country_code  &lt;chr&gt; &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;…
+## $ New_cases     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ New_deaths    &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0…
+## $ Region        &lt;chr&gt; &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;,…
+## $ Country       &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghanist…</code></pre>
+<pre class="r"><code>COVID19_Vaccinations &lt;- COVID19_Vaccinations[-c(1), ]
+Tidy_COVID19_Vaccinations &lt;- COVID19_Vaccinations %&gt;% separate(daily_vaccinations, 
+    into = c(&quot;daily_vaccinations&quot;), convert = T) %&gt;% separate(total_vaccinations, 
+    into = c(&quot;total_vaccinations&quot;), convert = T) %&gt;% mutate_at(c(8), 
+    ~replace(., is.na(.), 0)) %&gt;% select(location, iso_code, 
+    date, daily_vaccinations, daily_vaccinations_per_million)
+
+Tidy_COVID19_Vaccinations %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 8,290
+## Columns: 5
+## $ location                       &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghani…
+## $ iso_code                       &lt;chr&gt; &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AFG&quot;, &quot;AF…
+## $ date                           &lt;chr&gt; &quot;2021/2/22&quot;, &quot;2021/2/23&quot;, &quot;2021/2/24&quot;,…
+## $ daily_vaccinations             &lt;dbl&gt; 0, 1367, 1367, 1367, 1367, 1367, 1367,…
+## $ daily_vaccinations_per_million &lt;dbl&gt; NA, 35, 35, 35, 35, 35, 35, 41, 46, 52…</code></pre>
+<pre class="r"><code>CODE_MAPPING &lt;- CODE_MAPPING %&gt;% select(-X4, -County)
+
+CODE_MAPPING %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 249
+## Columns: 2
+## $ `2_COUNTY_CODE` &lt;chr&gt; &quot;AX&quot;, &quot;ZW&quot;, &quot;ZM&quot;, &quot;YE&quot;, &quot;EH&quot;, &quot;WF&quot;, &quot;VI&quot;, &quot;VG&quot;, &quot;VN&quot;,…
+## $ `3_COUNTY_CODE` &lt;chr&gt; &quot;ALA&quot;, &quot;ZWE&quot;, &quot;ZMB&quot;, &quot;YEM&quot;, &quot;ESH&quot;, &quot;WLF&quot;, &quot;VIR&quot;, &quot;VGB…</code></pre>
+<pre class="r"><code>POPULATION$pop2019 = POPULATION$pop2019 * 1000
+POPULATION %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 232
+## Columns: 9
+## $ Rank       &lt;dbl&gt; 37, 140, 34, 209, 202, 45, 222, 200, 31, 137, 196, 55, 97,…
+## $ name       &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Albania&quot;, &quot;Algeria&quot;, &quot;American Samoa&quot;, &quot;An…
+## $ pop2019    &lt;dbl&gt; 38041754, 2880917, 43053054, 55312, 77142, 31825295, 14869…
+## $ pop2018    &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA…
+## $ GrowthRate &lt;dbl&gt; 1.0233, 0.9989, 1.0185, 0.9978, 1.0016, 1.0327, 1.0090, 1.…
+## $ area       &lt;dbl&gt; 652230, 28748, 2381741, 199, 468, 1246700, 91, 442, 278040…
+## $ Density    &lt;dbl&gt; 58.3257, 100.2128, 18.0763, 277.9497, 164.8333, 25.5276, 1…
+## $ iso2       &lt;chr&gt; &quot;AF&quot;, &quot;AL&quot;, &quot;DZ&quot;, &quot;AS&quot;, &quot;AD&quot;, &quot;AO&quot;, &quot;AI&quot;, &quot;AG&quot;, &quot;AR&quot;, &quot;AM&quot;…
+## $ iso3       &lt;chr&gt; &quot;AFG&quot;, &quot;ALB&quot;, &quot;DZA&quot;, &quot;ASM&quot;, &quot;AND&quot;, &quot;AGO&quot;, &quot;AIA&quot;, &quot;ATG&quot;, &quot;A…</code></pre>
+<p><em>For dataset ‘COVID19_CASES’, ‘REGION_XXXX’ as its column. Therefore, to make it long, I use pivot_long function for the column that from column 8 to 15 to decrease the number of columns. Then use na_omit function to remove the NAs. After that, use separate to separate the ‘REGION_’ out and select the necessary columns. For dataset ‘COVID19_Vaccinations’ the first row is bad data, so we need remove it.</em></p>
+</div>
+<div id="joiningmerging-8-pts" class="section level4">
+<h4>2. Joining/Merging (8 pts)</h4>
+<ul>
+<li>Join your datasets into one using a <code>dplyr</code> join function</li>
+<li>If you have multiple observations on the joining variable in either dataset, fix this by collapsing via summarize</li>
+<li>Discuss the process in words, including why you chose the join you did</li>
+<li>Discuss which cases were dropped, if any, and potential problems with this</li>
+</ul>
+<pre class="r"><code>Tidy_COVID19_CASES %&gt;%
+  left_join(CODE_MAPPING, by = c(&quot;Country_code&quot; = &quot;2_COUNTY_CODE&quot;)) %&gt;% #Tidy_COVID19_CASES only have iso-2, Tidy_COVID19_Vaccinations has iso-3, so CODE_MAPPING is needed.
+  left_join(Tidy_COVID19_Vaccinations, by = c(&quot;3_COUNTY_CODE&quot; = &quot;iso_code&quot;, &quot;Date_reported&quot; = &quot;date&quot;)) %&gt;%
+  left_join(POPULATION,by = c(&quot;3_COUNTY_CODE&quot; = &quot;iso3&quot;)) %&gt;% 
+  select(Region,Country,Country_code,pop2019,Rank,GrowthRate,Date_reported,New_cases,New_deaths,daily_vaccinations,daily_vaccinations_per_million) %&gt;%
+  rename(population_rank = Rank) %&gt;%
+  mutate_at(c(10,11), ~replace(., is.na(.), 0))-&gt; fulldata
+
+fulldata %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 104,130
+## Columns: 11
+## $ Region                         &lt;chr&gt; &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;, &quot;EMRO&quot;…
+## $ Country                        &lt;chr&gt; &quot;Afghanistan&quot;, &quot;Afghanistan&quot;, &quot;Afghani…
+## $ Country_code                   &lt;chr&gt; &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;AF&quot;, &quot;A…
+## $ pop2019                        &lt;dbl&gt; 38041754, 38041754, 38041754, 38041754…
+## $ population_rank                &lt;dbl&gt; 37, 37, 37, 37, 37, 37, 37, 37, 37, 37…
+## $ GrowthRate                     &lt;dbl&gt; 1.0233, 1.0233, 1.0233, 1.0233, 1.0233…
+## $ Date_reported                  &lt;chr&gt; &quot;2020/1/3&quot;, &quot;2020/1/4&quot;, &quot;2020/1/5&quot;, &quot;2…
+## $ New_cases                      &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ New_deaths                     &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ daily_vaccinations             &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…
+## $ daily_vaccinations_per_million &lt;dbl&gt; 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,…</code></pre>
+<p><em>I choose left_join to join these datasets, the reason I use left_join is I want to make sure all countries and date in COVID19_CASES can be showed up. However, The region (Afica,Asia,Europe, etc) in Tidy_COVID19_Vaccinations will be dropped, since they are not inclued in COVID19_CASES dataset.</em></p>
+</div>
+<div id="wrangling-36-pts" class="section level4">
+<h4>3. Wrangling (36 pts)</h4>
+<ul>
+<li>Use all six core <code>dplyr</code> functions in the service of generating summary tables/statistics (12 pts)
+<ul>
+<li>Use mutate at least once to generate a variable that is a function of at least one other variable</li>
+</ul></li>
+<li>Compute summary statistics for each of your variables using <code>summarize</code> alone and with <code>group_by</code> (if you have more than 10 variables, fine to just focus on 10) (20 pts)
+<ul>
+<li>Use at least 5 unique functions inside of summarize (e.g., mean, sd)</li>
+<li>For at least 2, use summarize after grouping by a categorical variable. Create one by dichotomizing a numeric if necessary</li>
+<li>If applicable, at least 1 of these should group by two categorical variables</li>
+</ul></li>
+<li>Summarize/discuss all (or the most interesting) results in no more than two paragraphs (4 pts)</li>
+</ul>
+<pre class="r"><code>Newfulldata &lt;- fulldata %&gt;% group_by(Region, Country, Country_code, 
+    pop2019, population_rank, GrowthRate) %&gt;% summarize(Cumulative_cases = sum(New_cases), 
+    Cumulative_deaths = sum(New_deaths), Total_vaccinations = sum(daily_vaccinations), 
+    Total_vaccinations_per_million = sum(daily_vaccinations_per_million)) %&gt;% 
+    arrange(desc(Cumulative_deaths))
+Newfulldata %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 234
+## Columns: 10
+## Groups: Region, Country, Country_code, pop2019, population_rank [234]
+## $ Region                         &lt;chr&gt; &quot;AMRO&quot;, &quot;AMRO&quot;, &quot;AMRO&quot;, &quot;SEARO&quot;, &quot;EURO…
+## $ Country                        &lt;chr&gt; &quot;United States of America&quot;, &quot;Brazil&quot;, …
+## $ Country_code                   &lt;chr&gt; &quot;US&quot;, &quot;BR&quot;, &quot;MX&quot;, &quot;IN&quot;, &quot;GB&quot;, &quot;IT&quot;, &quot;R…
+## $ pop2019                        &lt;dbl&gt; 329064917, 211049527, 127575529, 13664…
+## $ population_rank                &lt;dbl&gt; 3, 6, 10, 2, 21, 23, 9, 22, 17, 30, 29…
+## $ GrowthRate                     &lt;dbl&gt; 1.0059, 1.0072, 1.0106, 1.0099, 1.0053…
+## $ Cumulative_cases               &lt;dbl&gt; 29497998, 11950459, 2193639, 11646081,…
+## $ Cumulative_deaths              &lt;dbl&gt; 536781, 292752, 197827, 159967, 126155…
+## $ Total_vaccinations             &lt;dbl&gt; 115964649, 12913272, 4984648, 39934881…
+## $ Total_vaccinations_per_million &lt;dbl&gt; 346743, 60752, 38662, 28936, 411458, 1…</code></pre>
+<pre class="r"><code>Newfulldata2 &lt;- Newfulldata %&gt;% mutate(case_rate = round(Cumulative_cases/pop2019, 
+    4), death_rate = round(Cumulative_deaths/pop2019, 5), vaccination_rate = round(Total_vaccinations/pop2019, 
+    4))
+
+Newfulldata2 %&gt;% ungroup() %&gt;% summarise(sum(Cumulative_cases), 
+    mean(Cumulative_cases), sd(Cumulative_cases), sum(Cumulative_deaths), 
+    mean(Cumulative_deaths), sd(Cumulative_deaths)) %&gt;% glimpse()</code></pre>
+<pre><code>## Rows: 1
+## Columns: 6
+## $ `sum(Cumulative_cases)`   &lt;dbl&gt; 122949622
+## $ `mean(Cumulative_cases)`  &lt;dbl&gt; 525425.7
+## $ `sd(Cumulative_cases)`    &lt;dbl&gt; 2293077
+## $ `sum(Cumulative_deaths)`  &lt;dbl&gt; 2710566
+## $ `mean(Cumulative_deaths)` &lt;dbl&gt; 11583.62
+## $ `sd(Cumulative_deaths)`   &lt;dbl&gt; 45875.35</code></pre>
+</div>
+<div id="visualizing-30-pts" class="section level4">
+<h4>4. Visualizing (30 pts)</h4>
+<ul>
+<li><p>Create a correlation heatmap of your numeric variables the way we did in class</p></li>
+<li><p>Create two effective, polished plots with ggplot</p>
+<ul>
+<li>Each plot should map 3+ variables to aesthetics</li>
+<li>Each plot should have a title and clean labeling for all mappings</li>
+<li>Change at least one default theme element and color for at least one mapping per plot</li>
+<li>For at least one plot, add more tick marks (x, y, or both) than are given by default</li>
+<li>For at least one plot, use the stat=“summary” function</li>
+<li>Supporting paragraph or two (for each plot) describing the relationships/trends that are apparent</li>
+</ul></li>
+</ul>
+<pre class="r"><code>Newfulldata2 %&gt;% 
+  ungroup() %&gt;% 
+  select_if(is.numeric) %&gt;% 
+  cor(use=&quot;pair&quot;) %&gt;% 
+  as.data.frame() %&gt;%
+  rownames_to_column(&quot;var1&quot;) %&gt;%
+  pivot_longer(-1,names_to=&quot;var2&quot;,values_to=&quot;correlation&quot;) %&gt;%
+  ggplot(aes(var1,var2,fill=correlation))+  geom_tile()+  scale_fill_gradient2(low=&quot;red&quot;,mid=&quot;white&quot;,high=&quot;blue&quot;)+ #makes colors!  
+  geom_text(aes(label=round(correlation,2)),color = &quot;black&quot;, size = 4)+ #overlay values  
+  theme(axis.text.x = element_text(angle = 90, hjust=1)) + ggtitle(&quot;Correlation heatmap&quot;) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-6-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>Newfulldata2 %&gt;% ggplot(aes(pop2019,Cumulative_cases)) +  geom_point(aes(color = Region)) + ggtitle(&quot;Population vs Cases&quot;) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-6-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>ggplot(Newfulldata2, aes(Cumulative_cases, Cumulative_deaths)) +  geom_point(aes(color = Region)) + ggtitle(&quot;Cases vs Deaths&quot;) + theme(plot.title = element_text(hjust = 0.5))</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-6-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p><em>From the Population vs Cases plot, most of countries’ cases are less than 5000000. Only 3 countries are much higher, two from AMRO region one from SEARO. Cases vs Deaths plot shows the relationship between cases and deaths, usually when cases increase death increase as well</em></p>
+</div>
+<div id="dimensionality-reduction-20-pts" class="section level4">
+<h4>5. Dimensionality Reduction (20 pts)</h4>
+<ul>
+<li><p>Either k-means/PAM clustering or PCA (inclusive “or”) should be performed on at least three of your variables (3 is just the minimum: using more/all of them will make this much more interesting!)</p>
+<ul>
+<li>All relevant steps discussed in class</li>
+<li>A visualization of the clusters or the first few principal components (using ggplot2)</li>
+<li>Supporting paragraph or two describing results found, interpreting the clusters/PCs etc.</li>
+</ul></li>
+</ul>
+<pre class="r"><code>library(plotly)
+library(cluster)
+
+pam_dat &lt;- Newfulldata2 %&gt;% ungroup() %&gt;% select(death_rate, 
+    vaccination_rate) %&gt;% na.omit()
+
+sil_width &lt;- vector()
+
+for (i in 2:10) {
+    pam_fit &lt;- pam(pam_dat, k = i)
+    sil_width[i] &lt;- pam_fit$silinfo$avg.width
+}
+
+ggplot() + geom_line(aes(x = 1:10, y = sil_width)) + scale_x_continuous(name = &quot;k&quot;, 
+    breaks = 1:10)</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-7-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><em>From the above graph we can see when we use 4 clusters data will be more separated</em></p>
+<pre class="r"><code>pam2 &lt;- Newfulldata2 %&gt;% ungroup() %&gt;% select(death_rate, vaccination_rate, 
+    pop2019) %&gt;% scale() %&gt;% na.omit() %&gt;% pam(4)
+
+plot(pam2, which = 2)</code></pre>
+<p><img src="../../project/project1_files/figure-html/unnamed-chunk-8-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p><em>From the plot Average silhouette width is 0.6 which is a reasonable structure.</em></p>
+<pre class="r"><code>final &lt;- Newfulldata2 %&gt;% ungroup() %&gt;% select(death_rate, vaccination_rate, 
+    pop2019) %&gt;% na.omit() %&gt;% mutate(cluster = pam2$clustering)
+
+final %&gt;% plot_ly(x = ~death_rate, y = ~vaccination_rate, z = ~pop2019, 
+    color = ~cluster, type = &quot;scatter3d&quot;, mode = &quot;markers&quot;) %&gt;% 
+    layout(autosize = F, width = 900, height = 400)</code></pre>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"visdat":{"ba5227125481":["function () ","plotlyVisDat"]},"cur_data":"ba5227125481","attrs":{"ba5227125481":{"x":{},"y":{},"z":{},"mode":"markers","color":{},"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter3d"}},"layout":{"width":900,"height":400,"margin":{"b":40,"l":60,"t":25,"r":10},"autosize":false,"scene":{"xaxis":{"title":"death_rate"},"yaxis":{"title":"vaccination_rate"},"zaxis":{"title":"pop2019"}},"hovermode":"closest","showlegend":false,"legend":{"yanchor":"top","y":0.5}},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[0.00163,0.00139,0.00155,0.00012,0.00187,0.00173,0.00065,0.00141,0.00089,0.00156,0.00123,0.00075,0.00122,0.00089,0.00154,0.0013,0.00015,0.00068,0.00036,0.00231,0.00197,0.00061,0.00118,0.00115,0.00191,0.00164,0.00095,0.00095,0.00036,6e-05,0.00132,0.00012,0.00105,0.00172,0.00012,0.0011,0.00167,0.00099,7e-05,0.00024,5e-05,0.00073,0.00071,0.00038,0.00019,0.00071,0.00142,0.00058,0.00178,0.0014,0.00083,0.00056,0,0.00094,0.00113,0.00045,0.00205,0.00093,0.00052,0.00019,0.00126,0.00167,0.00114,0.00033,0.0003,6e-05,7e-05,0.00011,0.00057,0.00054,2e-05,0.00037,6e-05,0.00042,0.00023,0.00074,0.00071,1e-05,4e-05,5e-05,0.00031,0.00096,3e-05,0.00033,0.0001,0.00023,5e-05,0.00015,4e-05,0.00029,7e-05,0.00186,7e-05,6e-05,6e-05,4e-05,0.00015,0.0006,0.00022,3e-05,2e-05,1e-05,2e-05,0.00117,0.00058,0.00012,2e-05,2e-05,3e-05,0.00018,2e-05,0.0003,0.0002,0.0001,3e-05,3e-05,0.00084,2e-05,1e-05,1e-05,0.00081,0.00015,2e-05,0.0001,2e-05,0.0002,1e-05,0.00027,0.00048,1e-05,3e-05,0.0003,0.00042,7e-05,0.00029,1e-05,0.00057,0.00017,1e-05,0.0005,0.0001,2e-05,0.0008,0.00146,1e-05,5e-05,1e-05,1e-05,7e-05,0.00279,1e-05,0,1e-05,0.0001,0.0003,2e-05,0.00076,1e-05,0.00233,0.00012,1e-05,7e-05,3e-05,0.0003,0.00142,0.00013,0.00014,0,0,0.00016,1e-05,9e-05,0.00029,0.00064,0.00069,0.00031,1e-05,0.00024,0.00014,0,0.00016,0.00042,0.00019,0.00032,1e-05,8e-05,0,0,0,1e-05,0,3e-05,0,3e-05,3e-05,1e-05,0.0002,0.0001,2e-05,0,9e-05,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"y":[0.3524,0.0612,0.0391,0.0292,0.4136,0.1221,0.0548,0.1221,0.1193,0.1228,0.0206,0.0014,0.0632,0.0028,0.0189,0.1265,0.0257,0.0022,0.1569,0.1181,0.1132,0.0954,0.4212,0.12,0.1984,0.1235,0.0066,0.1009,0,0.0015,0.1202,0.002,0.0132,0.0513,0,0.1091,0.1292,0.1311,0.0031,0.1768,0.0283,0.0008,0.1291,0.0032,0.0784,1.1338,0.0665,0.025,0,0.0806,0.0187,0.2403,0.0481,0.1284,0.0037,0.0027,0.1302,0,0.0019,0.0051,0.1419,0.0025,0,0.0476,0.0566,0.0059,0.0016,0.0533,0.0468,0,0,0,0.0013,0.1567,0.0032,0.0097,0,0,0.0003,0,0.0067,0.0446,0.0135,0.0215,0.0029,0,0.0003,0.6359,0.0114,0.0795,0,0.01,0,0.001,0.0094,0.0087,0.1364,0.1567,0.0831,0,0.0015,0,0.0152,0.0993,0,0.1341,0,0,0.0397,0.0057,0.0014,0.3603,0,0,0,0,0.2853,0,0,0.0002,0.03,0,0.0267,0.1932,0,0.1003,0.0008,0.0184,0,0,0,0.017,0,0,0,0,0,0,0,0,0.0006,0,0,0.0435,0,0,0,0,0,1.5664,0,0.0006,0,0,0,0,0,0,0.1973,0.3637,0,0,0,0.1062,0.0819,0,0.2052,0,0.0002,0,0.1246,0.131,0.2781,0,0.4614,0.3444,0.0049,0,0,0,0.9305,0.1686,0.4746,0,0.0026,0.0039,0,0,0.0524,0,0.0087,0.568,0,0,0,0.0688,0.2008,0,0.108,0,0,0.3778,0.179,0.6529,0.1472,0,0.0448,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"z":[329064917,211049527,127575529,1366417754,67530172,60550075,145872256,65129728,83517045,46736776,50339443,82913906,44780677,58558270,32510453,37887768,270625568,43993638,83429615,10689209,11539328,37411047,18952038,19364557,9684679,10226187,17373662,17097130,39309783,216565318,10036379,108116615,11513100,7000119,100388073,8591365,5457013,8955102,126860301,36471769,163046161,11694719,10473455,17581472,34268528,8519377,4246439,10101694,3301000,4130304,6855713,8772235,1433783686,4882495,4043263,9746117,2078654,3996765,7044636,18551427,2759627,2083459,2957731,10047718,10738958,54045420,43053054,28608710,5047561,4981420,112078730,6777452,38041754,5771876,9452411,2880917,2933408,200963599,52573973,42813238,6453553,1906743,51225308,4974986,14645468,6415850,28515829,9770529,31949777,4207083,17861030,627987,17070135,18628747,16296364,25203198,5532156,1325648,3461734,29161922,30366036,86790567,30417856,615729,1148130,5378857,32981716,25876380,21323733,2948279,31825295,1641172,2303697,4525696,15442905,11333483,440372,19658031,26969307,44269594,390353,2125268,12626950,2832067,11263077,1198575,25716544,782766,389482,23310715,6545502,581372,400056,2347706,549935,15946876,266150,850886,20321378,279287,1394973,5380508,167294,77142,12771246,2172579,11062113,8082366,1355986,33701,9321018,69625582,11801151,888927,290832,4937374,106314,7813215,33860,530953,4745185,973560,1920922,182790,38019,375554,287025,8776109,96462106,215056,5804337,339031,97118,42388,38964,84584,4783063,104578,163424,58005463,97739,38191,62506,38002,1269668,110589,3497117,11530580,3225167,433285,16486542,64948,889953,57216,30030,112003,4989,9847,48678,763092,11432,14869,71808,3377,52823,5822,56672,799,5942089,25666161,1293119,55312,17548,117606,7169455,58791,113815,10756,282750,1615,18008,197097,669823,1340,104494,11646,299882],"mode":"markers","type":"scatter3d","marker":{"colorbar":{"title":"cluster","ticklen":2},"cmin":1,"cmax":4,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,3,1,3,1,1,1,4,1,1,1,1,1,3,3,1,3,1,1,3,1,1,1,3,3,3,1,1,3,3,4,1,3,1,1,1,4,2,1,1,3,1,1,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,3,3,1,3,3,3,3,3,4,3,3,3,1,3,3,3,3,3,1,3,3,3,3,3,1,3,3,3,3,3,3,3,4,3,3,3,3,1,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,3,3,3,4,3,3,3,3,3,3,1,3,1,4,3,3,3,3,1,3,3,3,3,3,3,3,4,3,4,4,3,3,3,3,4,3,4,3,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3,3,3,4,3,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],"line":{"colorbar":{"title":"","ticklen":2},"cmin":1,"cmax":4,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":false,"color":[1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,3,1,3,1,1,1,4,1,1,1,1,1,3,3,1,3,1,1,3,1,1,1,3,3,3,1,1,3,3,4,1,3,1,1,1,4,2,1,1,3,1,1,3,3,1,1,1,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,3,3,1,3,3,3,3,3,4,3,3,3,1,3,3,3,3,3,1,3,3,3,3,3,1,3,3,3,3,3,3,3,4,3,3,3,3,1,3,3,3,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,3,3,3,4,3,3,3,3,3,3,1,3,1,4,3,3,3,3,1,3,3,3,3,3,3,3,4,3,4,4,3,3,3,3,4,3,4,3,3,3,3,3,3,3,3,4,3,3,3,3,3,3,3,3,3,4,3,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3]}},"frame":null},{"x":[0,0.00279],"y":[0,1.5664],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"cluster","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":1,"cmax":4,"colorscale":[["0","rgba(68,1,84,1)"],["0.0416666666666667","rgba(70,19,97,1)"],["0.0833333333333333","rgba(72,32,111,1)"],["0.125","rgba(71,45,122,1)"],["0.166666666666667","rgba(68,58,128,1)"],["0.208333333333333","rgba(64,70,135,1)"],["0.25","rgba(60,82,138,1)"],["0.291666666666667","rgba(56,93,140,1)"],["0.333333333333333","rgba(49,104,142,1)"],["0.375","rgba(46,114,142,1)"],["0.416666666666667","rgba(42,123,142,1)"],["0.458333333333333","rgba(38,133,141,1)"],["0.5","rgba(37,144,140,1)"],["0.541666666666667","rgba(33,154,138,1)"],["0.583333333333333","rgba(39,164,133,1)"],["0.625","rgba(47,174,127,1)"],["0.666666666666667","rgba(53,183,121,1)"],["0.708333333333333","rgba(79,191,110,1)"],["0.75","rgba(98,199,98,1)"],["0.791666666666667","rgba(119,207,85,1)"],["0.833333333333333","rgba(147,214,70,1)"],["0.875","rgba(172,220,52,1)"],["0.916666666666667","rgba(199,225,42,1)"],["0.958333333333333","rgba(226,228,40,1)"],["1","rgba(253,231,37,1)"]],"showscale":true,"color":[1,4],"line":{"color":"rgba(255,127,14,1)"}},"z":[799,1433783686],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p><em>From the plot we can see black cluster usually have high vaccination rate, death rate and lower population. Yellow cluster has high vaccination rate, low death rate and lower population. Green has lower vaccination rate, death rate and population. Blue cluster has lower vaccination rate, death rate and higher population</em></p>
+</div>
+<div id="neatness-holisticdiscretionary-points-4-pts" class="section level4">
+<h4>6. Neatness, Holistic/Discretionary Points (4 pts)</h4>
+<ul>
+<li>Keep things looking nice! Your project should not knit to more than 30 or so pages (probably closer to 10-20)! You will lose points if you print out your entire dataset(s), have terrible formatting, etc. If you start your project in a fresh .Rmd file, you are advised to copy set-up code below and include it: this will do things like automatically truncate if you accidentally print out a huge dataset, etc. Imagine this is a polished report you are giving to your PI or boss to summarize your work researching a topic.</li>
+</ul>
+<pre class="r"><code>## paste this chunk into the ```{r setup} chunk at the top of
+## your project 1 .Rmd file
+
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE, fig.align = &quot;center&quot;, 
+    warning = F, message = F, tidy = TRUE, tidy.opts = list(width.cutoff = 60), 
+    R.options = list(max.print = 100))</code></pre>
+</div>
+</div>
+<div id="where-do-i-find-data" class="section level3">
+<h3>Where do I find data?</h3>
+<p>OK, brace yourself!</p>
+<p>You can choose ANY datasets you want that meet the above criteria for variables and observations. I’m just sitting here but off the top of my head, if you are into amusement parks, you could look at amusement-park variables, including ticket sales per day etc.; then you could join this by date in weather data. If you are interested in Game of Thrones, you could look at how the frequency of mentions of character names (plus other character variables) and the frequency of baby names in the USA…You could even take your old Biostats data and merge in new data (e.g., based on a Google forms timestamp).</p>
+<p>You could engage in some “me-search”: You can <a href="https://support.spotify.com/ca-en/article/data-rights-and-privacy-settings/">request your Spotify data</a> or <a href="https://help.netflix.com/en/node/101917">download Netflix viewing activity</a>, Amazon purchase history, etc. You can use your Google Fit/Fitbit/Apple watch data, etc. These can be combined (e.g., with each other, with other data sources).</p>
+<p>You can make it as serious as you want, or not, but keep in mind that you will be incorporating this project into a portfolio webpage for your final in this course, so choose something that really reflects who you are, or something that you feel will advance you in the direction you hope to move career-wise, or something that you think is really neat. On the flip side, regardless of what you pick, you will be performing all the same tasks, so it doesn’t end up being that big of a deal.</p>
+<p>If you are totally clueless and have no direction at all, log into the server and type</p>
+<pre class="r"><code>data(package = .packages(all.available = TRUE))</code></pre>
+<p>This will print out a list of <strong>ALL datasets in ALL packages</strong> installed on the server (a ton)! Scroll until your eyes bleed! Actually, do not scroll that much… To start with something more manageable, just run the command on your own computer, or just run <code>data()</code> to bring up the datasets in your current environment. To read more about a dataset, do <code>?packagename::datasetname</code>.</p>
+<p>If it is easier for you, and in case you don’t have many packages installed, a list of R datasets from a few common packages (also downloadable in CSV format) is given at the following website: <a href="https://vincentarelbundock.github.io/Rdatasets/datasets.html" class="uri">https://vincentarelbundock.github.io/Rdatasets/datasets.html</a> (including types/numbers of variables in each)</p>
+<ul>
+<li><p>A good package to download for fun/relevant data is <code>fivethiryeight</code>. Just run <code>install.packages("fivethirtyeight"), load the packages with</code>library(fivethirtyeight)<code>, run</code>data()`, and then scroll down to view the datasets. Here is an online list of all 127 datasets (with links to the 538 articles). Lots of sports, politics, current events, etc: <a href="https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/fivethirtyeight.html" class="uri">https://cran.r-project.org/web/packages/fivethirtyeight/vignettes/fivethirtyeight.html</a></p></li>
+<li><p>If you have already started to specialize (e.g., ecology, epidemiology) you might look at discipline-specific R packages (vegan, epi, respectively). We will be using some tools from these packages later in the course, but they come with lots of data too, which you can explore according to the directions above</p></li>
+<li><p>However, you <em>emphatically DO NOT</em> have to use datasets available via R packages! In fact, I would much prefer it if you found the data from completely separate sources and brought them together (a much more realistic experience in the real world)! You can even reuse data from your SDS328M project, provided it shares a variable in common with other data which allows you to merge the two together (e.g., if you still had the timestamp, you could look up the weather that day: <a href="https://www.wunderground.com/history/" class="uri">https://www.wunderground.com/history/</a>). If you work in a research lab or have access to old data, you could potentially merge it with new data from your lab!</p></li>
+<li><p>Here is a curated list of interesting datasets (read-only spreadsheet format): <a href="https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit" class="uri">https://docs.google.com/spreadsheets/d/1wZhPLMCHKJvwOkP4juclhjFgqIY8fQFMemwKL2c64vk/edit</a></p></li>
+<li><p>Here is another great compilation of datasets: <a href="https://github.com/rfordatascience/tidytuesday" class="uri">https://github.com/rfordatascience/tidytuesday</a></p></li>
+<li><p>Here is the UCI Machine Learning Repository: <a href="https://archive.ics.uci.edu/ml/index.php" class="uri">https://archive.ics.uci.edu/ml/index.php</a></p>
+<ul>
+<li>See also <a href="https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research#Biological_data" class="uri">https://en.wikipedia.org/wiki/List_of_datasets_for_machine-learning_research#Biological_data</a></li>
+</ul></li>
+<li><p>Here is another good general place to look: <a href="https://www.kaggle.com/datasets" class="uri">https://www.kaggle.com/datasets</a></p></li>
+<li><p>To help narrow your search down or to see interesting variable ideas, check out <a href="https://www.tylervigen.com/spurious-correlations" class="uri">https://www.tylervigen.com/spurious-correlations</a>. This is the spurious correlations website, and it is fun, but if you look at the bottom of each plot you will see sources for the data. This is a good place to find very general data (or at least get a sense of where you can scrape data together from)!</p></li>
+<li><p>If you are interested in medical data, check out www.countyhealthrankings.org</p></li>
+<li><p>If you are interested in scraping UT data, the university makes <em>loads</em> of data public (e.g., beyond just professor CVs and syllabi). Check out all the data that is available in the statistical handbooks: <a href="https://reports.utexas.edu/statistical-handbook" class="uri">https://reports.utexas.edu/statistical-handbook</a></p></li>
+</ul>
+<div id="broader-data-sources" class="section level5">
+<h5>Broader data sources:</h5>
+<p><a href="www.data.gov">Data.gov</a> 186,000+ datasets!</p>
+<p><a href="Social%20Explorer">Social Explorer</a> is a nice interface to Census and American Community Survey data (more user-friendly than the government sites). May need to sign up for a free trial.</p>
+<p><a href="www.bls.gov">U.S. Bureau of Labor Statistics</a></p>
+<p><a href="www.census.gov">U.S. Census Bureau</a></p>
+<p><a href="www.gapminder.org/data">Gapminder</a>, data about the world.</p>
+<p>…</p>
+</div>
+</div>
+</div>
+
+            
+        <hr>         <div class="related-posts">
+                <h5>Related Posts</h5>
+                
+              </div> 
+            </div>
+          </div>
+
+   <hr>  <div class="disqus">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+
+    (function() {
+      
+      
+      if (window.location.hostname == "localhost")
+        return;
+
+      var disqus_shortname = '';
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  <a href="http://disqus.com/" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div> 
+        </div>
+      </div>
+    </div>
+
+    
+    <footer>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io/">Hugo</a> and
+      <a href="http://www.github.com/nurlansu/hugo-sustain/">sustain</a> with ♥</p>
+    </div>
+  </div>
+</footer>
+<div class="footer"></div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="../../js/docs.min.js"></script>
+<script src="../../js/main.js"></script>
+
+<script src="../../js/ie10-viewport-bug-workaround.js"></script>
+
+
+    
+  </body>
+</html>
